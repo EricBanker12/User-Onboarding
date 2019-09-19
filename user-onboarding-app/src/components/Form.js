@@ -1,6 +1,7 @@
 import React from 'react'
-import { withFormik, Form, Field, validateYupSchema } from 'formik'
+import { withFormik, Form, Field } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
 
 function BaseForm({ values, errors, touched }) {
     return (
@@ -39,8 +40,22 @@ const FormikForm = withFormik({
             terms: terms || true,
         }
     },
-    handleSubmit: (values) => {
-        console.log(values)
+    handleSubmit: (values, { props, resetForm }) => {
+        //console.log(props)
+        axios.post('https://reqres.in/api/users', values)
+            .then(resp => {
+                //console.log(resp)
+                props.addUser(resp.data)
+                resetForm({
+                    name: '',
+                    email: '',
+                    password: '',
+                    terms: true,
+                })
+            })
+            .catch( err => {
+                console.error(err)
+            })
     },
     validationSchema: Yup.object().shape({
         name: Yup.string().required(),
