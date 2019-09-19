@@ -49,7 +49,7 @@ label:last-of-type {
   }
 }
 
-input {
+input, select {
   width: 80%;
 }
 

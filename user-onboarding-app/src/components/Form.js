@@ -12,6 +12,23 @@ function BaseForm({ values, errors, touched }) {
                 {(touched.name && errors.name) ? <p className="error">{errors.name}</p> : ''}
             </label>
             <label >
+                Role:&nbsp;
+                <Field component='select' name='role'>
+                    <option value=''>Select a role</option>
+                    <option value='DATA ENGINEER'>DATA ENGINEER</option>
+                    <option value='MACHINE LEARNING ENGINEER'>MACHINE LEARNING ENGINEER</option>
+                    <option value='WEB UI DEVELOPER'>WEB UI DEVELOPER</option>
+                    <option value='WEB REACT I'>WEB REACT I</option>
+                    <option value='WEB REACT II'>WEB REACT II</option>
+                    <option value='WEB BACKEND (JAVA)'>WEB BACKEND (JAVA)</option>
+                    <option value='WEB BACKEND (NODE)'>WEB BACKEND (NODE)</option>
+                    <option value='IOS ENGINEER II'>IOS ENGINEER II</option>
+                    <option value='ANDROID ENGINEER II'>ANDROID ENGINEER II</option>
+                    <option value='PROJECT LEAD'>PROJECT LEAD</option>
+                </Field>
+                {(touched.role && errors.role) ? <p className="error">{errors.role}</p> : ''}
+            </label>
+            <label >
                 Email:&nbsp;
                 <Field type='email' name='email' />
                 {(touched.email && errors.email) ? <p className="error">{errors.email}</p> : ''}
@@ -32,9 +49,10 @@ function BaseForm({ values, errors, touched }) {
 }
 
 const FormikForm = withFormik({
-    mapPropsToValues: ({name, email, password, terms}) => {
+    mapPropsToValues: ({name, role, email, password, terms}) => {
         return {
             name: name || '',
+            role: role || '',
             email: email || '',
             password: password || '',
             terms: terms || true,
@@ -48,6 +66,7 @@ const FormikForm = withFormik({
                 props.addUser(resp.data)
                 resetForm({
                     name: '',
+                    role: '',
                     email: '',
                     password: '',
                     terms: true,
@@ -59,6 +78,7 @@ const FormikForm = withFormik({
     },
     validationSchema: Yup.object().shape({
         name: Yup.string().required(),
+        role: Yup.mixed().required(),
         email: Yup.string().email().required(),
         password: Yup.string().min(6).required(),
         terms: Yup.boolean().oneOf([true], 'you must agree to the Terms of Service'),
