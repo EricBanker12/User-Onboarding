@@ -7,17 +7,17 @@ function BaseForm({ values, errors, touched }) {
     return (
         <Form>
             <label >
-                Name:
+                Name:&nbsp;
                 <Field type='text' name='name' />
                 {(touched.name && errors.name) ? <p className="error">{errors.name}</p> : ''}
             </label>
             <label >
-                Email:
+                Email:&nbsp;
                 <Field type='email' name='email' />
                 {(touched.email && errors.email) ? <p className="error">{errors.email}</p> : ''}
             </label>
             <label >
-                Password:
+                Password:&nbsp;
                 <Field type='password' name='password' />
                 {(touched.password && errors.password) ? <p className="error">{errors.password}</p> : ''}
             </label>
